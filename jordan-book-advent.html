@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f2a22">
+<meta name="color-scheme" content="dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Jordan's Book Advent</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: a string of lights over a 4/3/2-column grid of doors; each door opens on its date to reveal a teaser card. Single dark-green Christmas look by choice. */
+:root{
+  --pine:#0f2a22; --pine2:#17382d; --berry:#a3213a; --berry2:#c2304c; --gold:#e6c36a; --paper:#fbf5e6; --ink:#2a1f1a; --mist:#b9cbbf;
+  --display:'Fraunces',Georgia,serif; --body:'Inter',system-ui,sans-serif;
+  color-scheme:dark;
+}
+body{background:var(--pine);color:var(--paper);font-family:var(--body);line-height:1.5;
+  background-image:radial-gradient(circle at 20% 10%,rgba(255,255,255,.05) 0 2px,transparent 3px),radial-gradient(circle at 70% 40%,rgba(255,255,255,.04) 0 2px,transparent 3px);
+  background-size:90px 90px,130px 130px;
+  padding-block:0 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.lights{display:flex;justify-content:space-around;height:22px;margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));border-bottom:2px solid #1f5a45;overflow:hidden}
+.lights i{width:10px;height:14px;border-radius:50% 50% 50% 50%/60% 60% 40% 40%;margin-top:6px;background:var(--gold)}
+.lights i:nth-child(3n+1){background:var(--berry2)}
+.lights i:nth-child(3n+2){background:#6cc39a}
+.wrap{max-width:980px;margin:0 auto}
+header{padding-block:36px 28px;max-width:56ch}
+.eyebrow{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(2.2rem,6vw,3.6rem);line-height:1.04;margin:8px 0 12px;text-wrap:balance}
+.intro{margin:0;color:var(--mist);font-size:1.02rem}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(4,minmax(0,1fr))}
+@media(max-width:860px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:600px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.slot{min-width:0}
+.door,.card{width:100%;min-height:190px;border-radius:10px;box-sizing:border-box}
+.door{appearance:none;border:2px solid var(--gold);background:linear-gradient(160deg,var(--berry2),var(--berry));color:var(--paper);cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:14px;font-family:inherit;position:relative}
+.door::before{content:"";position:absolute;inset:8px;border:1px dashed rgba(230,195,106,.55);border-radius:6px;pointer-events:none}
+.door .m{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.door .d{font-family:var(--display);font-size:3.2rem;line-height:1;font-weight:700;font-variant-numeric:tabular-nums}
+.door .s{font-size:.78rem;color:#f6dfe3;min-height:1.2em}
+.door:hover:not([aria-disabled="true"]){background:linear-gradient(160deg,#d13c58,var(--berry2))}
+.door:focus-visible{outline:3px solid var(--paper);outline-offset:3px}
+.door[aria-disabled="true"]{cursor:default;background:linear-gradient(160deg,#6d1a2b,#561523);border-color:#8a7440}
+.door[aria-disabled="true"] .d{opacity:.75}
+.door.nudge{animation:nudge .35s}
+@keyframes nudge{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.card{background:var(--paper);color:var(--ink);padding:16px;display:flex;flex-direction:column;gap:10px;border:2px solid var(--gold)}
+.card .tag{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--berry);font-weight:600}
+.card p{font-family:var(--display);font-size:1.08rem;line-height:1.35;margin:0;font-weight:600}
+.card.fin{background:linear-gradient(160deg,#fff4d1,var(--paper))}
+.card.flip{animation:flip .55s ease-out}
+@keyframes flip{from{transform:rotateY(90deg);opacity:0}to{transform:none;opacity:1}}
+@media(prefers-reduced-motion:reduce){.card.flip,.door.nudge{animation:none}}
+footer{margin-top:28px;color:var(--mist);font-size:.85rem;text-align:center}
+
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;background:#0f2a22}
+body{margin:0;min-height:100vh;min-height:100dvh;padding-top:env(safe-area-inset-top,0px);padding-bottom:max(48px,env(safe-area-inset-bottom,0px))}
+.door{touch-action:manipulation;-webkit-tap-highlight-color:transparent;-webkit-appearance:none}
+.lights{margin-top:0}
+@media(max-width:600px){
+  .grid{gap:12px}
+  .door,.card{min-height:168px}
+  .door .d{font-size:2.8rem}
+  .door .s{font-size:.82rem}
+  .card{padding:14px}
+  .card p{font-size:1rem}
+  header{padding-block:28px 22px}
+  .intro{font-size:1rem}
+}
+@media(max-width:340px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="lights" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<div class="wrap">
+<header>
+<span class="eyebrow">December 1 to 18</span>
+<h1>Jordan's Book Advent</h1>
+<p class="intro">Twelve books are waiting for you. A door opens on its date and shows a small hint. Guess the book, then read it.</p>
+</header>
+<main class="grid" id="grid"></main>
+<footer>Merry Christmas.</footer>
+</div>
+<noscript><p style="padding:16px">Please turn on JavaScript to open the doors.</p></noscript>
+<script>
+var DOORS=[
+ [1,"A band, a decade and a breakup, told through interviews with everyone who was there."],
+ [3,"A friendship, a heartbreak and a lot of laughs. Keep tissues nearby."],
+ [4,"A family trades everything for the Alaskan wilderness. The winter is long, and the dark is not the worst of it."],
+ [6,"A wedding on a windswept island, a storm rolling in, and one guest who won't be going home."],
+ [7,"Letters, war and gods. The story you started in book one picks up again."],
+ [9,"Kentucky, 1937. A band of women on horseback carries books to the mountains, and not everyone approves."],
+ [10,"Two exes, one cottage and a very bad plan to keep up the act."],
+ [12,"A true story. She had never been inside a classroom until she was seventeen. Then came Cambridge."],
+ [13,"Her husband disappears. He leaves a note with two words: protect her."],
+ [15,"Two timelines, two women and a spy network most history books forgot."],
+ [16,"The First Son and a prince are enemies in public. Then the cameras go off."],
+ [18,"A glance through a bus window. A year of near misses. A December to remember."]
+];
+var MONTHS=["Dec"];
+var grid=document.getElementById('grid');
+var unlock=(location.hash==='#unlock');
+var opened={};
+try{opened=JSON.parse(localStorage.getItem('jb-opened')||'{}')}catch(e){}
+function save(){try{localStorage.setItem('jb-opened',JSON.stringify(opened))}catch(e){}}
+function isOpen(day){return unlock||new Date()>=new Date(2026,11,day)}
+function render(){
+  grid.innerHTML='';
+  DOORS.forEach(function(x,i){
+    var day=x[0],slot=document.createElement('div');slot.className='slot';
+    if(opened[day]&&isOpen(day)){slot.appendChild(card(x,i,false))}
+    else{slot.appendChild(door(x,i))}
+    grid.appendChild(slot);
+  });
+}
+function door(x,i){
+  var day=x[0],b=document.createElement('button');b.className='door';b.type='button';
+  var ok=isOpen(day);
+  if(!ok)b.setAttribute('aria-disabled','true');
+  b.setAttribute('aria-label','Dec '+day+(ok?', tap to open':', not open yet'));
+  b.innerHTML='<span class="m">Dec</span><span class="d">'+day+'</span><span class="s">'+(ok?'Tap to open':'Not yet')+'</span>';
+  b.onclick=function(){
+    if(!isOpen(day)){b.classList.remove('nudge');void b.offsetWidth;b.classList.add('nudge');return}
+    opened[day]=1;save();b.parentNode.replaceChild(card(x,i,true),b);
+  };
+  return b;
+}
+function card(x,i,anim){
+  var c=document.createElement('div');c.className='card'+(i===11?' fin':'')+(anim?' flip':'');
+  c.innerHTML='<span class="tag">Dec '+x[0]+' &middot; Book '+(i+1)+' of 12</span><p></p>';
+  c.querySelector('p').textContent=x[1];
+  return c;
+}
+render();
+</script>
+
+</body>
+</html>
